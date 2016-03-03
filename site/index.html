@@ -2,25 +2,32 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Dateme.com</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dateme.com - Find your soul mate</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Dateme.com</h1>
-        <hr />
-        <h2>Your Top Ten profile match</h2>
+        <div class="container">
+            <h1>Dateme.com</h1>
+            <hr />
+<div class="wrapper">
+            <h2>Your Top Ten profile match</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>email</th>
-                    <th>location</th>
-                    <th>salary</th>
-                    <th>color</th>
-                    <th>score</th>
-                </tr>
-            </thead>
-            <tbody id="profile-list"></tbody>
-        </table>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>email</th>
+                        <th>location</th>
+                        <th>salary</th>
+                        <th>color</th>
+                        <th>score</th>
+                    </tr>
+                </thead>
+                <tbody id="profile-list"></tbody>
+            </table>
+</div>
+        </div>
 
     </body>
 
@@ -67,39 +74,47 @@
             }());
 
 
-            var results = [
-                {
-                    "profile": {
-                        "email": "user1@example.com",
-                        "location": "New York, NY",
-                        "salary":  10000,
-                        "color": "#ff0000"
-                    },
-                    "score": 9.8
-                },
-                {
-                    "profile": {
-                        "email": "user2@example.com",
-                        "location": "San Francisco, CA",
-                        "salary":  10000,
-                        "color": "#0000ff"
-                    },
-                    "score": 8.3
-                },
-                {
-                    "profile": {
-                        "email": "user3@example.com",
-                        "location": "Washinton, DC",
-                        "salary":  10000,
-                        "color": "#00ff00"
-                    },
-                    "score": 7.1
-                }
-            ];
 
-            UIService.displayTopTenProfiles(results);
+            //MODEL
+            var DataService = (function () {
+                var DATEME_SERVER = "http://localhost:8000";
+                var TOPTEN_ENDPOINT = "/test-data/top-ten.json";
 
-        }());
+                return {
+                    getTopTenProfiles: function (currentUser) {
+                        return $.ajax({
+                            type: "GET",
+                            url: DATEME_SERVER + TOPTEN_ENDPOINT,
+                            dataType: "json",
+                            contentType: "application/json"
+                        });
+                    }
+                };
+            }());
+
+
+            //CONTROLLER
+            var App = (function () {
+                return {
+                    loadAndDisplayTopTenResults: function () {
+                        var promise = DataService.getTopTenProfiles();
+                        promise.done(function (results) {
+                            UIService.displayTopTenProfiles(results);
+                        });
+                    }
+                };
+            }());
+
+
+
+            $(document).ready(function () {
+                App.loadAndDisplayTopTenResults();
+            });
+    }());
+
+
+
+
     </script>
 
 

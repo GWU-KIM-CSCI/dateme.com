@@ -4,7 +4,7 @@
             "email": "user1@example.com",
             "location": "New York, NY",
             "salary":  10000,
-            "color": "#ff0000"
+            "color": "#ff00ff"
         },
         "score": 9.8
     },
