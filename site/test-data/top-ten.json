@@ -1,0 +1,29 @@
+[
+    {
+        "profile": {
+            "email": "user1@example.com",
+            "location": "New York, NY",
+            "salary":  10000,
+            "color": "#ff0000"
+        },
+        "score": 9.8
+    },
+    {
+        "profile": {
+            "email": "user2@example.com",
+            "location": "San Francisco, CA",
+            "salary":  10000,
+            "color": "#0000ff"
+        },
+        "score": 8.3
+    },
+    {
+        "profile": {
+            "email": "user3@example.com",
+            "location": "Washinton, DC",
+            "salary":  10000,
+            "color": "#00ff00"
+        },
+        "score": 7.1
+    }
+]

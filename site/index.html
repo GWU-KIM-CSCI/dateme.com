@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dateme.com</title>
+    </head>
+    <body>
+        <h1>Dateme.com</h1>
+        <hr />
+        <h2>Your Top Ten profile match</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>email</th>
+                    <th>location</th>
+                    <th>salary</th>
+                    <th>color</th>
+                    <th>score</th>
+                </tr>
+            </thead>
+            <tbody id="profile-list"></tbody>
+        </table>
+
+    </body>
+
+    <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script type="text/template" id="single-profile-template">
+        <tr>
+            <td>${email}</td>
+            <td>${location}</td>
+            <td>${salary}</td>
+            <td style="color:${color}">${color}</td>
+            <td>${score}</td>
+        </tr>
+    </script>
+
+    <script>
+        (function () {
+
+            //VIEW
+            var UIService = (function () {
+
+                var applyTemplate = function (template, data) {
+                    return template
+                        .replace(/\${email}/g, data.profile.email)
+                        .replace(/\${location}/g, data.profile.location)
+                        .replace(/\${salary}/g, data.profile.salary)
+                        .replace(/\${color}/g, data.profile.color)
+                        .replace(/\${score}/g, data.score);
+                };
+                var renderTopTenResult = function (results) {
+                    return results.map(function (data) {
+                        return applyTemplate(resultTemplate, data);
+                    }).join("");
+                };
+
+
+                var resultTemplate = $("#single-profile-template").html();
+
+                return {
+                    displayTopTenProfiles: function (results) {
+                        var rendering = renderTopTenResult(results);
+                        $("#profile-list").html(rendering);
+                    }
+                }
+            }());
+
+
+            var results = [
+                {
+                    "profile": {
+                        "email": "user1@example.com",
+                        "location": "New York, NY",
+                        "salary":  10000,
+                        "color": "#ff0000"
+                    },
+                    "score": 9.8
+                },
+                {
+                    "profile": {
+                        "email": "user2@example.com",
+                        "location": "San Francisco, CA",
+                        "salary":  10000,
+                        "color": "#0000ff"
+                    },
+                    "score": 8.3
+                },
+                {
+                    "profile": {
+                        "email": "user3@example.com",
+                        "location": "Washinton, DC",
+                        "salary":  10000,
+                        "color": "#00ff00"
+                    },
+                    "score": 7.1
+                }
+            ];
+
+            UIService.displayTopTenProfiles(results);
+
+        }());
+    </script>
+
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
