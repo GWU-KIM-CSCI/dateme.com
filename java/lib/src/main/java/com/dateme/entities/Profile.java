@@ -14,4 +14,14 @@ public class Profile {
         this.color = c;
     }
 
+    public boolean equals(Object right) {
+        if (right instanceof Profile) {
+            Profile r = (Profile) right;
+            return this.email.equals(r.email) && this.location.equals(r.location) && this.salary == r.salary && this.color.equals(r.color);
+
+        } else {
+            return false;
+        }
+    }
+
 }
